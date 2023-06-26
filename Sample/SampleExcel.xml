@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+    class x {
+        public int Prop1 { get; set; }
+        public double Prop2 { get; set; }
+        public string Prop3 { get; set; }
+    }
+-->
+<Definitions StartRow="1">
+    <Column Property="Prop1" Index="1" Sheet="Sheet1"/>
+    <Column Property="Prop2" Index="2" Format="0.00" Sheet="Sheet1"/>
+    <Column Property="Prop3" Index="3" Func="ToDate" Sheet="Sheet1"/>
+</Definitions>
