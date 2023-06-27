@@ -1,4 +1,4 @@
-namespace LibInstanceTo.CSVl;
+namespace LibInstanceTo.CSV;
 using System.Text;
 using System.Numerics;
 

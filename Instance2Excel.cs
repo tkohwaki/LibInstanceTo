@@ -40,7 +40,7 @@ public class InstanceToExcel<T,V> : ConvertBase<T,V>, IDisposable
     /// <param name="DefFile">Definition File Name</param>
     public InstanceToExcel(string? ExcelFile,string DefFile)
         : this(DefFile) {
-        if (ExcelFile != null) {
+        if (!string.IsNullOrEmpty(ExcelFile)) {
             pkg = new ExcelPackage(new FileInfo(ExcelFile));
         } else {
             pkg = new ExcelPackage();
@@ -69,6 +69,10 @@ public class InstanceToExcel<T,V> : ConvertBase<T,V>, IDisposable
         foreach(var itm in defs) {
             // Get Worksheet
             ExcelWorksheet sheet = pkg!.Workbook.Worksheets[itm.SheetName!];
+            if (sheet == null) {
+                pkg!.Workbook.Worksheets.Add(itm.SheetName!);
+                sheet = pkg!.Workbook.Worksheets[itm.SheetName!];
+            }
             // Excel Column
             int col = itm.Index;
             // Get Value from Instance.PropertyName

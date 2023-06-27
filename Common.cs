@@ -47,6 +47,7 @@ public class ConvertBase<T,V>
             if (c == null) {
                 throw new InvalidDataException("必須項目(Property)が存在しません");
             }
+            def.PropertyName = c;
             // Format
             c = itm.Attribute("Format")?.Value;
             def.Format = c;

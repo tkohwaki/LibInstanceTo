@@ -16,7 +16,7 @@
 - InstanceToExcel<T,V>(Stream OutputExcelStream,string DefFile)  
   Excelの雛形のStreamと変換定義ファイル名を指定します。Streamがnullの場合は空のExcelファイルへの出力となります。
 - InstanceToExcel<T,V>(string OutputExcelFileName, string DefFile)  
-    Excelの雛形のファイル名と変換定義ファイル名を指定します。Streamがnullの場合は空のExcelファイルへの出力となります。
+    Excelの雛形のファイル名と変換定義ファイル名を指定します。Streamが空文字列("")の場合は雛形無しのExcelファイルへの出力となります。
 - ConvertOne(int Row,T Instance)
   インスタンスを1行分だけ出力します。
 - Convert(List<T> Instances)  
