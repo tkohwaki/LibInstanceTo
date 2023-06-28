@@ -22,7 +22,7 @@ public class InstanceToCSV<T,V> : ConvertBase<T,V> , IDisposable
     /// Output CSV File Stream
     /// </summary>
     private StreamWriter outfile = null!;
-    private int CurrentRow;
+    private int CurrentRow = 0;
     /// <summary>
     /// Constructor
     /// </summary>
@@ -59,7 +59,7 @@ public class InstanceToCSV<T,V> : ConvertBase<T,V> , IDisposable
     /// </summary>
     /// <param name="Row"></param>
     /// <param name="Inst"></param>
-    public void ConvertOne(int Row,T Inst) {
+    public void ConvertOne(T Inst) {
         string?[] items = new string[defs.Max(v=>v.Index)+1];
         foreach(var itm in defs) {
             object? val = typeof(T).GetProperty(itm.PropertyName)!.GetValue(Inst);
@@ -96,7 +96,7 @@ public class InstanceToCSV<T,V> : ConvertBase<T,V> , IDisposable
             CurrentRow = StartRow;
         }
         foreach(var itm in Instances) {
-            ConvertOne(CurrentRow,itm);
+            ConvertOne(itm);
             CurrentRow++;
         }
     }

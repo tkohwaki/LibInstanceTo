@@ -21,6 +21,7 @@ public class InstanceToExcel<T,V> : ConvertBase<T,V>, IDisposable
     /// Convert Definition List
     /// </summary>
     private List<ConvertDef> defs;
+    private int CurrentRow = 0;
     /// <summary>
     /// Constructor
     /// </summary>
@@ -92,10 +93,12 @@ public class InstanceToExcel<T,V> : ConvertBase<T,V>, IDisposable
     /// </summary>
     /// <param name="Instances">Instance List</param>
     public void Convert(IEnumerable<T> Instances) {
-        int row = StartRow;
+        if (CurrentRow == 0) {
+            CurrentRow = StartRow;
+        }
         foreach(var itm in Instances) {
-            ConvertOne(row,itm);
-            row++;
+            ConvertOne(CurrentRow,itm);
+            CurrentRow++;
         }
     }
     /// <summary>
