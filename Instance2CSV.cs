@@ -32,7 +32,7 @@ public class InstanceToCSV<T,V> : ConvertBase<T,V> , IDisposable
         Converter = new V();
         // Load Definition
         using(FileStream stm = new FileStream(DefFile,FileMode.Open)) {
-            defs = LoadDef(stm,OutputTypes.Excel);
+            defs = LoadDef(stm,OutputTypes.CSV);
         }
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
     }
