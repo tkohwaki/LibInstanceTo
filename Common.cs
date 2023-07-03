@@ -47,7 +47,11 @@ public class ConvertBase<T,V>
             if (c == null) {
                 throw new InvalidDataException("必須項目(Property)が存在しません");
             }
-            def.PropertyName = c;
+            var prop = typeof(T).GetProperty(c);
+            if (prop == null) {
+                throw new InvalidDataException(@$"{nameof(T)}にProperty""{c}""が存在しません");
+            }
+            def.Property = prop;
             // Format
             c = itm.Attribute("Format")?.Value;
             def.Format = c;
@@ -78,7 +82,7 @@ public class ConvertBase<T,V>
 /// Convert Definition
 /// </summary>
 public class ConvertDef {
-    public string PropertyName { get; set; } = null!;   // マッピングするプロパティ名
+    public PropertyInfo Property { get; set; } = null!;   // マッピングするプロパティ名
     public int Index { get; set; }  // カラム(Excelは1ベース,CSVは0ベース)
     public string? SheetName { get; set; }   // シート名(Excelのみ)
     public string? Format { get; set; } // 変換フォーマット(オプション)

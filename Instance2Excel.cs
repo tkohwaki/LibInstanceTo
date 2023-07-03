@@ -77,7 +77,7 @@ public class InstanceToExcel<T,V> : ConvertBase<T,V>, IDisposable
             // Excel Column
             int col = itm.Index;
             // Get Value from Instance.PropertyName
-            object? val = typeof(T).GetProperty(itm.PropertyName)!.GetValue(Inst);
+            object? val = itm.Property!.GetValue(Inst);
             if (itm.Converter == null) {
                 sheet.Cells[Row,col].Value = val;
             } else {

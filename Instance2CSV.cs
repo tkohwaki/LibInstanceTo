@@ -62,7 +62,7 @@ public class InstanceToCSV<T,V> : ConvertBase<T,V> , IDisposable
     public void ConvertOne(T Inst) {
         string?[] items = new string[defs.Max(v=>v.Index)+1];
         foreach(var itm in defs) {
-            object? val = typeof(T).GetProperty(itm.PropertyName)!.GetValue(Inst);
+            object? val = itm.Property!.GetValue(Inst);
             if (itm.Converter == null) {
                 if (itm.Format == null) {
                     items[itm.Index] = $"{val}";
