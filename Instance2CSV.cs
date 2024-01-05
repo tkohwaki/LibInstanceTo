@@ -1,6 +1,8 @@
 namespace LibInstanceTo.CSV;
 using System.Text;
 using System.Numerics;
+using OfficeOpenXml.ConditionalFormatting;
+
 
 /// <summary>
 /// Class Instance to CSV File Class
@@ -37,22 +39,62 @@ public class InstanceToCSV<T,V> : ConvertBase<T,V> , IDisposable
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
     }
     /// <summary>
+    /// CSVのStreamWriter作成
+    /// </summary>
+    /// <param name="CSVStream">CSVファイルのStream</param>
+    /// <param name="Enc">CSVファイルのエンコーディング</param>
+    /// <returns></returns>
+    private StreamWriter GetCSVStream(Stream CSVStream, Encoding Enc) {
+        return new StreamWriter(CSVStream,Enc);
+    }
+    /// <summary>
+    /// CSVのStreamWriter作成
+    /// </summary>
+    /// <param name="CSVFile">CSVファイルパス</param>
+    /// <param name="Enc">CSVファイルのエンコーディング</param>
+    /// <returns></returns> <summary>
+    private StreamWriter GetCSVStream(string CSVFile, Encoding Enc) {
+        Stream stm = new FileStream(CSVFile,FileMode.Create);
+        return new StreamWriter(stm,Enc);
+    }
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="CSVStream">CSVファイルのストリーム</param>
+    /// <param name="DefFile">定義ファイルパス</param>
+    /// <param name="Enc">CSVファイルのエンコーディング</param> <summary>
+    public InstanceToCSV(Stream CSVStream,string DefFile,Encoding Enc)
+        : this(DefFile) {
+        outfile = GetCSVStream(CSVStream,Enc);
+    }
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="CSVFile">CSVファイルパス</param>
+    /// <param name="DefFile">定義ファイルパス</param>
+    /// <param name="Enc">CSVファイルのエンコーディング</param>
+    /// <summary>
+    public InstanceToCSV(string CSVFile,string DefFile,Encoding Enc)
+        : this(DefFile) {
+        outfile = GetCSVStream(CSVFile,Enc);
+    }
+    /// <summary>
     /// Constructor(File)
     /// </summary>
-    /// <param name="CSVFile">Output CSV File Name</param>
-    /// <param name="DefFile">Convert Definition File Name</param>
+    /// <param name="CSVFile">CSVファイルパス</param>
+    /// <param name="DefFile">定義ファイルパス</param>
     public InstanceToCSV(string CSVFile,string DefFile)
         : this(DefFile) {
-        outfile = new StreamWriter(CSVFile,false,Encoding.GetEncoding("shift_jis"));
+        outfile = GetCSVStream(CSVFile,Encoding.GetEncoding("shift_jis"));
     }
     /// <summary>
     /// Constructor(Stream)
     /// </summary>
-    /// <param name="CSVStream">Output CSV Stream</param>
-    /// <param name="DefFile">Convert Definition File Name</param>
+    /// <param name="CSVStream">CSVファイルパス</param>
+    /// <param name="DefFile">定義ファイルパス</param>
     public InstanceToCSV(Stream CSVStream,string DefFile)
         : this(DefFile) {
-        outfile = new StreamWriter(CSVStream,Encoding.GetEncoding("shift_jis"));
+        outfile = GetCSVStream(CSVStream,Encoding.GetEncoding("shift_jis"));
     }
     /// <summary>
     /// Convert Single Instance
